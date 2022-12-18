@@ -1,24 +1,27 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-
-export interface IEmployee {
-  id: number;
-  name: string;
-}
+import { IEmployee } from './interfaces/employees.interface';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class EmployeesService {
   private EMPLOYEES: IEmployee[] = [
     {
-      id: 1,
+      id: uuid(),
       name: 'Rafael',
+      middleName: 'Estrada',
+      surName: 'Piñon',
     },
     {
-      id: 2,
+      id: uuid(),
       name: 'Juan',
+      middleName: 'Estrada',
+      surName: 'Piñon',
     },
     {
-      id: 3,
+      id: uuid(),
       name: 'Pedro',
+      middleName: 'Estrada',
+      surName: 'Piñon',
     },
   ];
 
@@ -26,7 +29,7 @@ export class EmployeesService {
     return this.EMPLOYEES;
   }
 
-  findOneById(id: number): IEmployee {
+  findOneById(id: string): IEmployee {
     const foundEmployeeIndex = this.EMPLOYEES.findIndex(
       (employee) => employee.id === id,
     );
@@ -39,7 +42,12 @@ export class EmployeesService {
   }
 
   create(employee: IEmployee): void {
-    this.EMPLOYEES.push(employee);
+    const newEmployee: IEmployee = {
+      ...employee,
+      id: uuid(),
+    };
+
+    this.EMPLOYEES.push(newEmployee);
   }
 
   update(employee: Partial<IEmployee>) {
@@ -63,7 +71,7 @@ export class EmployeesService {
     this.EMPLOYEES[foundEmployeeIndex] = employeeUpdated;
   }
 
-  delete(id: number): void {
+  delete(id: string): void {
     const foundEmployeeIndex = this.EMPLOYEES.findIndex(
       (employee) => employee.id === id,
     );
