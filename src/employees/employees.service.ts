@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { IEmployee } from './interfaces/employees.interface';
 import { v4 as uuid } from 'uuid';
 
@@ -50,22 +54,27 @@ export class EmployeesService {
     this.EMPLOYEES.push(newEmployee);
   }
 
-  update(employee: Partial<IEmployee>) {
-    const employeeId = employee.id;
+  update(id: string, employee: Partial<IEmployee>): void {
+    if (employee.id && employee.id !== id) {
+      throw new BadRequestException(
+        `Employee id does not match the http request id`,
+      );
+    }
 
     const foundEmployeeIndex = this.EMPLOYEES.findIndex(
-      (employee) => employee.id === employeeId,
+      (employee) => employee.id === id,
     );
 
     if (foundEmployeeIndex === -1) {
       throw new NotFoundException(
-        `Employee with id ${employeeId} was not found and couldn't update it`,
+        `Employee with id ${id} was not found and couldn't update it`,
       );
     }
 
     const employeeUpdated = {
       ...this.EMPLOYEES[foundEmployeeIndex],
       ...employee,
+      id,
     };
 
     this.EMPLOYEES[foundEmployeeIndex] = employeeUpdated;

@@ -7,14 +7,11 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { CreateEmployeeDto, UpdateEmployeeDto } from './dtos/employees.dto';
 import { EmployeesService } from './employees.service';
 
 @Controller('employees')
-@UsePipes(ValidationPipe)
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
@@ -38,8 +35,7 @@ export class EmployeesController {
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() data: UpdateEmployeeDto,
   ) {
-    data.id = id;
-    this.employeesService.update(data);
+    this.employeesService.update(id, data);
   }
 
   @Delete(':id')

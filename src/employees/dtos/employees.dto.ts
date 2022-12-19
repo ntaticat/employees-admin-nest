@@ -1,19 +1,19 @@
-import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger';
+import { OmitType, PartialType } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { IEmployee } from '../interfaces/employees.interface';
 
 export class EmployeeDto implements IEmployee {
   @IsUUID()
-  id: string;
+  readonly id: string;
   @IsString()
   @IsNotEmpty()
-  name: string;
+  readonly name: string;
   @IsString()
   @IsNotEmpty()
-  middleName: string;
+  readonly middleName: string;
   @IsString()
   @IsNotEmpty()
-  surName: string;
+  readonly surName: string;
 }
 
 export class CreateEmployeeDto extends OmitType(EmployeeDto, ['id'] as const) {}
