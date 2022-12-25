@@ -8,26 +8,7 @@ import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class EmployeesService {
-  private EMPLOYEES: IEmployee[] = [
-    {
-      id: uuid(),
-      name: 'Rafael',
-      middleName: 'Estrada',
-      surName: 'Piñon',
-    },
-    {
-      id: uuid(),
-      name: 'Juan',
-      middleName: 'Estrada',
-      surName: 'Piñon',
-    },
-    {
-      id: uuid(),
-      name: 'Pedro',
-      middleName: 'Estrada',
-      surName: 'Piñon',
-    },
-  ];
+  private EMPLOYEES: IEmployee[] = [];
 
   findAll(): IEmployee[] {
     return this.EMPLOYEES;

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repetitions</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="employees-container">
+            <p class="employees-title">Empleados</p>
+            <ul class="employees-list" id="contenedor-lista">
+            </ul>
+        </div>
+
+        <div class="add-employee-container">
+            <button id="open-employee-modal">Añadir empleado</button>
+        </div>
+    </div>
+
+    <div id="create-employee-modal" class="create-employee-modal">
+        <div id="employee-modal-container" class="employee-modal-container">
+            <p>Registrar un empleado</p>
+            <form id="employee-form" class="employee-form">
+                <div class="employee-input-container">
+                    <label class="input-label" for="name">Nombre</label>
+                    <input type="text" class="input-name" name="name" id="employeeName" placeholder="Ej. Juanito">
+                </div>
+                <div class="employee-input-container">
+                    <label class="input-label" for="middleName">Apellido Paterno</label>
+                    <input type="text" class="input-middlename" name="middleName" id="employeeMiddleName" placeholder="Ej. Perez">
+                </div>
+                <div class="employee-input-container">
+                    <label class="input-label" for="surName">Apellido Materno</label>
+                    <input type="text" class="input-surname" name="surName" id="employeeSurName" placeholder="Ej. Rodriguez">
+                </div>
+                <div class="employee-input-container">
+                    <input id="button-employee" type="submit" class="button-employee" value="Registrar">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script defer src="script.js"></script>
+</body>
+</html>
