@@ -8,6 +8,7 @@ import { EmployeesModule } from './employees/employees.module';
     EmployeesModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
+      exclude: ['/api*'],
     }),
   ],
   controllers: [],
