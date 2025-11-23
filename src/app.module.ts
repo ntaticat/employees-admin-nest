@@ -17,22 +17,27 @@ const ENV = process.env.NODE_ENV;
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_NAME'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get<string>('NODE_ENV') === 'development',
-        autoLoadEntities: true,
+      useFactory: async (configService: ConfigService) => {
+        const useSSL =
+          configService.get<string>('DATABASE_SSL')?.toLowerCase() === 'true';
 
-        ssl:
-          configService.get<boolean>('DATABASE_SSL') === true
-            ? { rejectUnauthorized: false }
-            : false,
-      }),
+        const databaseUrl = configService.get<string>('DATABASE_URL');
+
+        if (!databaseUrl) {
+          throw new Error('DATABASE_URL environment variable is not set.');
+        }
+
+        return {
+          type: 'postgres',
+          url: databaseUrl,
+          migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          synchronize: configService.get<string>('NODE_ENV') === 'development',
+          autoLoadEntities: true,
+
+          ssl: useSSL ? { rejectUnauthorized: false } : false,
+        };
+      },
       inject: [ConfigService],
     }),
     EmployeesModule,
