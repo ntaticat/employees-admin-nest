@@ -1,0 +1,20 @@
+# Directorios estándar de Node/NestJS
+node_modules
+dist
+.git
+.gitignore
+
+# Archivos de desarrollo y configuración local
+.env.development
+.env.production
+.env.example
+.eslintrc.js
+.prettierrc.js
+*.log
+*.tsbuildinfo
+docker-compose.yml
+
+# Archivos de prueba (si no los necesitas en producción)
+coverage
+e2e
+src/**/*.spec.ts

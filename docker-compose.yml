@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:15
+    container_name: employeesadmin_postgres
+    restart: always
+    env_file:
+      - .env.development
+    ports:
+      - '5432:5432'
+    volumes:
+      - employeesadmin_volume:/var/lib/postgresql/data
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: employeesadmin_api
+    restart: unless-stopped
+    env_file:
+      - .env.development
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+volumes:
+  employeesadmin_volume:
