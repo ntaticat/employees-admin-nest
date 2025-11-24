@@ -24,7 +24,7 @@ export default new DataSource({
   url: dbUrl,
   synchronize: false,
   logging: false,
-  entities: [isTs ? 'src/**/*.entity.ts' : 'dist/:**/*.entity.js'],
+  entities: [isTs ? 'src/**/*.entity.ts' : 'dist/**/*.entity.js'],
   migrations: [isTs ? 'src/migrations/**/*.ts' : 'dist/migrations/**/*.js'],
   ssl: useSSL
     ? {

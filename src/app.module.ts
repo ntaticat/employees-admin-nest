@@ -30,7 +30,7 @@ const ENV = process.env.NODE_ENV;
         return {
           type: 'postgres',
           url: databaseUrl,
-          migrations: [join(__dirname + '/migrations/**/*{.ts,.js}')],
+          migrations: [join(__dirname, 'migrations/**/*{.ts,.js}')],
           entities: [join(__dirname, '/**/*.entity{.ts,.js}')],
           synchronize: configService.get<string>('NODE_ENV') === 'development',
           autoLoadEntities: true,
