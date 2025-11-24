@@ -77,6 +77,10 @@ Nest is [MIT licensed](LICENSE).
 Add like start command in render
 
 ```bash
-# Run nestjs typeorm migrations
-$ npx typeorm migration:run -d ormconfig.ts
+# Start Command (for Docker environments)
+$ npm run migration:run && npm run start:prod
+
+# Create migration after changing entities of TypeORM and tested it
+npm run migration:generate -- src/migrations/migration_name
+
 ```

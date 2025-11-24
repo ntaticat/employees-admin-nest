@@ -15,14 +15,20 @@ if (!dbUrl) {
   );
 }
 
+const isTs = path.extname(__filename) === '.ts';
+
+const useSSL = process.env.DATABASE_SSL?.toLowerCase() === 'true';
+
 export default new DataSource({
   type: 'postgres',
   url: dbUrl,
-  synchronize: false, // Siempre false aquí para la CLI
+  synchronize: false,
   logging: false,
-  entities: [__dirname + '/**/*.entity{.ts,.js}'],
-  migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  entities: [isTs ? 'src/**/*.entity.ts' : 'dist/:**/*.entity.js'],
+  migrations: [isTs ? 'src/migrations/**/*.ts' : 'dist/migrations/**/*.js'],
+  ssl: useSSL
+    ? {
+        rejectUnauthorized: false,
+      }
+    : false,
 });

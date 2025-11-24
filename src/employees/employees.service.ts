@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   HttpException,
   Injectable,
   InternalServerErrorException,
@@ -50,6 +51,12 @@ export class EmployeesService {
       const employee = this.employeesRepo.create(dto);
       return await this.employeesRepo.save(employee);
     } catch (error) {
+      if (error?.code === '23505') {
+        throw new ConflictException(
+          'An employee with that unique data already exists',
+        );
+      }
+
       if (error instanceof HttpException) {
         throw error;
       }

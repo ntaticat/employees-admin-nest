@@ -12,7 +12,7 @@ const ENV = process.env.NODE_ENV;
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: !ENV ? 'env.development' : `.env.${ENV}`,
+      envFilePath: `.env.${ENV}`,
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
@@ -30,8 +30,8 @@ const ENV = process.env.NODE_ENV;
         return {
           type: 'postgres',
           url: databaseUrl,
-          migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
-          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          migrations: [join(__dirname + '/migrations/**/*{.ts,.js}')],
+          entities: [join(__dirname, '/**/*.entity{.ts,.js}')],
           synchronize: configService.get<string>('NODE_ENV') === 'development',
           autoLoadEntities: true,
 
